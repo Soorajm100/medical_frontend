@@ -45,7 +45,7 @@ const ActiveIncident = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(`http://localhost:5000/api/ambulances/getincident/${incidentId}`)
+      const response = await axios.get(`https://medical-backend-dbt2.onrender.com/api/ambulances/getincident/${incidentId}`)
 
       setIncident(response.data.data[0]); 
       
@@ -64,7 +64,7 @@ const ActiveIncident = () => {
     try {
       setUpdating(true);
       
-      const response = await axios.post(`http://localhost:5000/api/ambulances/update-status`, {
+      const response = await axios.post(`https://medical-backend-dbt2.onrender.com/api/ambulances/update-status`, {
         
           incident_id : getIncidentIdFromUrl() , 
           new_status: newStatus,

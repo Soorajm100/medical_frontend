@@ -9,12 +9,15 @@ import React from "react";
 export default function App({ Component, ...rest }: AppProps) {
   const { store: wrappedStore, props } = wrapper.useWrappedStore(rest);
   const [url, setUrl] = useState("");
+  const [mounted, setMounted] = useState(false);
 
- 
+
+  useEffect(()=>{
+    setMounted(true)
+  })
 
   return (
-    <>
-    
+    mounted &&<>
           <Provider store={wrappedStore}>
             <Component {...props.pageProps} />
           </Provider>

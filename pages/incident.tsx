@@ -27,7 +27,7 @@ const fetchData = async () => {
     const data = {
         'user_id' : user_id
     }
-    const response = await axios.post('http://localhost:5000/api/incidents/incidentlist' ,data );
+    const response = await axios.post('https://medical-backend-dbt2.onrender.com/api/incidents/incidentlist' ,data );
     console.log('Data fetched:', response.data);
 
     setIncidents(response.data.incident_list)
@@ -347,11 +347,11 @@ const fetchData = async () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-xs text-gray-500 mb-1">Incident ID</p>
-                  <p className="text-sm font-semibold text-gray-900">{selectedIncident.incident_id}</p>
+                  <p className="text-sm font-semibold text-gray-900">{selectedIncident?.incident_id}</p>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-xs text-gray-500 mb-1">Emergency Type</p>
-                  <p className="text-sm font-semibold text-gray-900">{selectedIncident.emergency_type}</p>
+                  <p className="text-sm font-semibold text-gray-900">{selectedIncident?.emergency_type}</p>
                 </div>
               </div>
 

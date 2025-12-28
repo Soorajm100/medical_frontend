@@ -37,8 +37,7 @@ const AmbulanceRequest = () => {
 
  const fetchActiveIncidentAfterAccept = async ()=>{
      try {
-       const response:any = await axios.get("http://localhost:5000/api/ambulances/afteraccept"); 
-       setActiveIncident(response?.data?.data); 
+       const response:any = await axios.get(`https://medical-backend-dbt2.onrender.com/api/ambulances/afteraccept/${ambulance_id}`); 
     } catch (error) {
       console.error('Error fetching active incident:', error);
     }
@@ -60,7 +59,7 @@ const AmbulanceRequest = () => {
   const fetchIncomingRequests = async () => {
     try {
       // Sample data - replace with actual API call
-      const response = await axios.get(`http://localhost:5000/api/ambulances/incidents/${ambulance_id}`);
+      const response = await axios.get(`https://medical-backend-dbt2.onrender.com/api/ambulances/incidents/${ambulance_id}`);
       const Finaldata = response?.data?.data || []; 
       
       // Mock data
@@ -87,8 +86,8 @@ const AmbulanceRequest = () => {
     setLoading(true);
     try {
       // API call to accept incident
-      const response = await axios.post('http://localhost:5000/api/ambulances/accept-incident', {
-          incident_id: incident.incident_id,
+      const response = await axios.post('https://medical-backend-dbt2.onrender.com/api/ambulances/accept-incident', {
+          incident_id: incident?.incident_id,
           ambulance_driver_id: user_id,
           ambulance_driver_name:name,
           ambulance_driver_phone: mobilenumber 
@@ -103,7 +102,7 @@ const AmbulanceRequest = () => {
         setActiveIncident(data.data);
         // Remove from incoming requests
         setIncomingRequests(prev => 
-          prev.filter((req:any) => req.incident_id !== incident.incident_id)
+          prev.filter((req:any) => req?.incident_id !== incident?.incident_id)
         );
       } else {
         alert('Failed to accept request: ' + data.message);
@@ -120,7 +119,7 @@ const AmbulanceRequest = () => {
     // For now just remove from list
     // You can add an API call to formally reject if needed
     setIncomingRequests(prev => 
-      prev.filter((req:any) => req.incident_id !== incident.incident_id)
+      prev.filter((req:any) => req?.incident_id !== incident?.incident_id)
     );
   };
 
@@ -219,7 +218,7 @@ const AmbulanceRequest = () => {
   <div className="space-y-6 mb-8">
     {activeIncident.map((incident:any) => (
       <div
-        key={incident.incident_id}
+        key={incident?.incident_id}
         className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white"
       >
         <div className="flex items-center justify-between">
@@ -229,13 +228,13 @@ const AmbulanceRequest = () => {
             </div>
             <div>
               <h3 className="text-xl font-bold">Active Emergency</h3>
-              <p className="text-green-100">Incident ID: {incident.incident_id}</p>
+              <p className="text-green-100">Incident ID: {incident?.incident_id}</p>
             </div>
           </div>
 
           <button
             className="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors"
-            onClick={() => router.push(`activeIncident?incident_id=${incident.incident_id}`)}
+            onClick={() => router.push(`activeIncident?incident_id=${incident?.incident_id}`)}
           >
             View Details
           </button>
@@ -264,7 +263,7 @@ const AmbulanceRequest = () => {
             <div className="divide-y divide-gray-200">
               {incomingRequests.map((request:any) => (
                 <div 
-                  key={request.incident_id}
+                  key={request?.incident_id}
                   className="p-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
